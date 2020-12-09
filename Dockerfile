@@ -18,8 +18,12 @@ RUN powershell -Command "`
 
 CMD powershell -Command "`
     $headers = @{ `
-    Authorization="token $env:GITHUBPAT" `
-    } `
-    $token = ($(Invoke-WebRequest -UseBasicParsing -Uri https://api.github.com/repos/$env:GITHUBREPO/actions/runners/registration-token -Headers $headers -Method POST).Content | ConvertFrom-Json).token; `
-    .\config.cmd --url \"https://github.com/$env:GITHUBREPO\" --token \"$token\" ; `
+    Authorization=\"token $env:GITHUBPAT\" `
+    }; `
+    $tokenLevel = \"orgs\"; `
+    if ($env:GITHUBREPO_OR_ORG.IndexOf('/') -gt 0) { `
+    $tokenLevel = \"repos\" `
+    }; `
+    $token = ($(Invoke-WebRequest -UseBasicParsing -Uri \"https://api.github.com/$tokenLevel/$env:GITHUBREPO_OR_ORG/actions/runners/registration-token\" -Headers $headers -Method POST).Content | ConvertFrom-Json).token; `
+    .\config.cmd --url \"https://github.com/$env:GITHUBREPO_OR_ORG\" --token \"$token\" ; `
     .\run.cmd"

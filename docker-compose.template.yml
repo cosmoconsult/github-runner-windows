@@ -1,22 +1,22 @@
 version: "3.7"
 
 services:
-  runner-1:
+  runner-org:
     image: tobiasfenster/github-runner-windows:2004
     volumes:
       - source: '\\.\pipe\docker_engine'
         target: '\\.\pipe\docker_engine'
         type: npipe
     environment:
-      - GITHUBURL=https://github.com/...
-      - GITHUBTOKEN=...
+      - GITHUBREPO_OR_ORG=cosmoconsult
+      - GITHUBPAT=...
 
-  runner-2:
+  runner-repo:
     image: tobiasfenster/github-runner-windows:2004
     volumes:
       - source: '\\.\pipe\docker_engine'
         target: '\\.\pipe\docker_engine'
         type: npipe
     environment:
-      - GITHUBURL=https://github.com/...
-      - GITHUBTOKEN=...
+      - GITHUBREPO_OR_ORG=cosmoconsult/github-runner-windows
+      - GITHUBPAT=...
