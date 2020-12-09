@@ -17,5 +17,9 @@ RUN powershell -Command "`
     Remove-Item actions-runner.zip; "
 
 CMD powershell -Command "`
-    .\config.cmd --url \"$env:GITHUBURL\" --token \"$env:GITHUBTOKEN\" ; `
+    $headers = @{ `
+    Authorization="token $env:GITHUBPAT" `
+    } `
+    $token = ($(Invoke-WebRequest -UseBasicParsing -Uri https://api.github.com/repos/$env:GITHUBREPO/actions/runners/registration-token -Headers $headers -Method POST).Content | ConvertFrom-Json).token; `
+    .\config.cmd --url \"https://github.com/$env:GITHUBREPO\" --token \"$token\" ; `
     .\run.cmd"
