@@ -1,0 +1,27 @@
+name: Build Images manually
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_version:
+        description: "base version for the Docker images"
+        default: "2004"
+        required: true
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.docker_user }}
+          password: ${{ secrets.docker_pwd }}
+
+      - name: Build Docker image for Core service
+        run: docker build -t tobiasfenster/github-runner-windows:${{ github.event.inputs.base_version }} -f Dockerfile --build-arg BASE=${{ github.event.inputs.base_version }} --isolation hyperv .
+
+      - name: Push Docker images
+        run: docker push tobiasfenster/github-runner-windows:${{ github.event.inputs.base_version }}
