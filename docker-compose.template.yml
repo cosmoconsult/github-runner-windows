@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  runner-1:
+    image: tobiasfenster/github-runner-windows:2004
+    volumes:
+      - source: '\\.\pipe\docker_engine'
+        target: '\\.\pipe\docker_engine'
+        type: npipe
+    environment:
+      - GITHUBURL=https://github.com/...
+      - GITHUBTOKEN=...
+
+  runner-2:
+    image: tobiasfenster/github-runner-windows:2004
+    volumes:
+      - source: '\\.\pipe\docker_engine'
+        target: '\\.\pipe\docker_engine'
+        type: npipe
+    environment:
+      - GITHUBURL=https://github.com/...
+      - GITHUBTOKEN=...
