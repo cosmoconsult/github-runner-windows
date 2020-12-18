@@ -16,6 +16,6 @@ RUN Invoke-WebRequest -Uri \"https://github.com/actions/runner/releases/download
     Expand-Archive actions-runner.zip -DestinationPath .; `
     Remove-Item actions-runner.zip; 
 
-COPY cmd.ps1 /
+COPY cmd.ps1 .
 
 CMD cmd.ps1
