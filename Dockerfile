@@ -18,4 +18,4 @@ RUN Invoke-WebRequest -Uri \"https://github.com/actions/runner/releases/download
 
 COPY cmd.ps1 .
 
-CMD cmd.ps1
+CMD .\cmd.ps1
