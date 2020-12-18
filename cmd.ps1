@@ -10,13 +10,14 @@ $token = ($(Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/$tok
 Start-Process -FilePath ".\run.cmd"
 
 $failureCount = 0
-while ($failureCount -lt 4) {
+$maxFailureCount = 3
+while ($failureCount -lt $maxFailureCount) {
+    Start-Sleep -Seconds 10;
     if ($Null -eq (get-process "Runner.Listener" -ea SilentlyContinue)) {
-        Write-Host "not running"
         $failureCount++;
+        Write-Host "not running ($failureCount / $maxFailureCount)"
     }
     else {
         $failureCount = 0;
     }
-    Start-Sleep -Seconds 10;
 }
