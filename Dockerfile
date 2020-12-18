@@ -1,7 +1,7 @@
 # escape=`
 ARG BASE
 FROM mcr.microsoft.com/windows/servercore:$BASE
-ENV VERSION 2.274.2
+ENV VERSION 2.275.1
 
 USER ContainerAdministrator
 RUN powershell -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
