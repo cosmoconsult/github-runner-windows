@@ -1,7 +1,7 @@
 # escape=`
 ARG BASE
 FROM mcr.microsoft.com/windows/servercore:$BASE
-ENV VERSION 2.274.2
+ENV VERSION 2.290.1
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 USER ContainerAdministrator
