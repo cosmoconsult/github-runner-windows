@@ -5,12 +5,12 @@ on:
     inputs:
       base_version:
         description: "base version for the Docker images"
-        default: "2004"
+        default: "ltsc2022"
         required: true
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v1
@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.docker_pwd }}
 
       - name: Build Docker image
-        run: docker build -t tobiasfenster/github-runner-windows:${{ github.event.inputs.base_version }} -f Dockerfile --build-arg BASE=${{ github.event.inputs.base_version }} --isolation hyperv .
+        run: docker build -t cosmoconsult/github-runner-windows:${{ github.event.inputs.base_version }} -f Dockerfile --build-arg BASE=${{ github.event.inputs.base_version }} .
 
       - name: Push Docker image
-        run: docker push tobiasfenster/github-runner-windows:${{ github.event.inputs.base_version }}
+        run: docker push cosmoconsult/github-runner-windows:${{ github.event.inputs.base_version }}
