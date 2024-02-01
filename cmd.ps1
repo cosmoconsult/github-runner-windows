@@ -7,7 +7,11 @@ if ($env:GITHUBREPO_OR_ORG.IndexOf('/') -gt 0) {
 };
 $registrationToken = ($(Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/$tokenLevel/$env:GITHUBREPO_OR_ORG/actions/runners/registration-token" -Headers $headers -Method POST).Content | ConvertFrom-Json).token;
 
-.\config.cmd --url "https://github.com/$env:GITHUBREPO_OR_ORG" --token "$registrationToken" --name $env:GITHUBRUNNERNAME --unattended --replace ;
+if ($env:ephemeral -eq "true") {
+  .\config.cmd --url "https://github.com/$env:GITHUBREPO_OR_ORG" --token "$registrationToken" --ephemeral --unattended --replace ;
+} else {
+  .\config.cmd --url "https://github.com/$env:GITHUBREPO_OR_ORG" --token "$registrationToken" --name $env:GITHUBRUNNERNAME --unattended --replace ;
+}
 Start-Process -FilePath ".\run.cmd"
 
 $failureCount = 0
