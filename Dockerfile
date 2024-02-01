@@ -1,6 +1,6 @@
 # escape=`
 ARG BASE
-FROM mcr.microsoft.com/windows/servercore:$BASE
+FROM docker pull mcr.microsoft.com/powershell:$BASE
 ENV VERSION 2.310.2
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
