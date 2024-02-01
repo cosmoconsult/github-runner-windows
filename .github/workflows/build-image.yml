@@ -5,7 +5,7 @@ on:
     inputs:
       base_version:
         description: "base version for the Docker images"
-        default: "ltsc2022"
+        default: "windowsservercore-ltsc2022"
         required: true
 
 jobs:
