@@ -1,0 +1,19 @@
+name: 'Validate linked work item'
+
+on: 
+  pull_request:
+    types: [opened, reopened, edited]
+    branches:
+      - main 
+
+permissions:
+    pull-requests: write
+    issues: write
+
+    
+jobs:
+  create-edit-comment:
+    name: check   
+    runs-on: ubuntu-latest
+    steps:
+      - uses: danhellem/github-actions-pr-is-linked-to-work-item@main
